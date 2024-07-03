@@ -3,7 +3,7 @@ import { createSupabaseBrowserClient } from "@/lib/client/supabase";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { FcTodoList } from "react-icons/fc";
+import { FcAndroidOs, FcTodoList } from "react-icons/fc";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLogout } from "react-icons/ai";
 
@@ -23,6 +23,15 @@ const AuthHeader = ({ user }: AuthHeaderProps) => {
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_AUTH_REDIRECT_TO,
+      },
+    });
+  };
+
+  const handleKakaoLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "kakao",
       options: {
         redirectTo: process.env.NEXT_PUBLIC_AUTH_REDIRECT_TO,
       },
@@ -54,12 +63,21 @@ const AuthHeader = ({ user }: AuthHeaderProps) => {
               <AiOutlineLogout size={30} />
             </div>
           ) : (
-            <div
-              onClick={handleGoogleLogin}
-              className="flex flex-row items-center gap-2 cursor-pointer"
-            >
-              Login
-              <FcGoogle size={30} />
+            <div>
+              <div
+                onClick={handleGoogleLogin}
+                className="flex flex-row items-center gap-2 cursor-pointer"
+              >
+                Login
+                <FcGoogle size={30} />
+              </div>
+              <div
+                onClick={handleKakaoLogin}
+                className="flex flex-row items-center gap-2 cursor-pointer"
+              >
+                Login
+                <FcAndroidOs size={30} />
+              </div>
             </div>
           )}
         </div>

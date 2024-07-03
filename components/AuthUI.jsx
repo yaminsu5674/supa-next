@@ -62,7 +62,7 @@ const AuthUI = () => {
             theme: ThemeSupa,
           }}
           onlyThirdPartyProviders
-          providers={["google", "github"]}
+          providers={["google", "github", "kakao"]}
         />
       </div>
     </section>
